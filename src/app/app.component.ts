@@ -7,10 +7,10 @@ import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public displayText: Observable<string>;
+  public displayText$: Observable<string>;
 
   public ngOnInit(): void {
-    this.displayText = new Observable((subscriber) => {
+    this.displayText$ = new Observable((subscriber) => {
       subscriber.next('Hello world');
       //subscriber.error('Whoop!');
       subscriber.next('After');
