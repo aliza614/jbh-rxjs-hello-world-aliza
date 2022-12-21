@@ -8,18 +8,15 @@ import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 })
 export class AppComponent {
   public displayText$: Observable<string>;
+  private displaySource: Subject<string> = new Subject();
 
   public ngOnInit(): void {
-    this.displayText$ = new Observable((subscriber) => {
-      subscriber.next('Hello world');
-      //subscriber.error('Whoop!');
-      subscriber.next('After');
-      subscriber.complete();
-      //anything after a complete or error does not work
-      //for example this does not say done
-      subscriber.next('Done');
-    });
+    this.displayText$ = this.displaySource.asObservable();
   }
 
-  public updateText(): void {}
+  public updateText(): void {
+    this.displaySource.next('Hello Subject');
+    this.displaySource.error('Oh no!');
+    this.displaySource.complete();
+  }
 }
